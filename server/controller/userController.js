@@ -1,3 +1,4 @@
+import Blog from "../model/blogModel.js";
 import User from "../model/userModel.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
@@ -21,6 +22,18 @@ const getUser = async (req, res) => {
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json(error);
+  }
+};
+
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(400).json(error);
   }
 };
 const loginUser = async (req, res) => {
@@ -73,4 +86,27 @@ const deleteUser = (req, res) => {
   return res.json({ message: "delete a users" });
 };
 
-export { getUser, getUsers, loginUser, registerUser, deleteUser };
+const followUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+
+    user.followers.push(req.user._id);
+    await user.save();
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(200).json(error);
+  }
+};
+export {
+  getUser,
+  getUsers,
+  loginUser,
+  registerUser,
+  deleteUser,
+  followUser,
+  getProfile,
+};

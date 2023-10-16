@@ -68,4 +68,22 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-export { getBlog, getBlogs, deleteBlog, updateBlog, addBlog };
+const commentOnBlog = async (req, res) => {
+  try {
+    const { comment } = await req.body;
+    const { id } = await req.params;
+
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(400).json({ message: "Blog not Found" });
+    }
+
+    blog.comments.push(comment);
+    const updatedBlog = await blog.save();
+    return res.status(200).json(updatedBlog);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export { getBlog, getBlogs, deleteBlog, updateBlog, addBlog, commentOnBlog };
