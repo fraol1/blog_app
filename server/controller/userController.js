@@ -52,10 +52,8 @@ const registerUser = async (req, res) => {
     if (existingUser !== null) {
       return res.status(401).json({ message: "user Already exist" });
     }
-    console.log({ Fullname, email, password });
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
-    console.log("here");
 
     const new_user = await User.create({ Fullname, email, password: hashed });
     console.log(new_user);
