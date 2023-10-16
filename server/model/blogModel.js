@@ -16,6 +16,10 @@ const blogSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    picturePath: {
+      type: String,
+      default: "",
+    },
     comments: {
       type: Array,
       default: [],

@@ -6,7 +6,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "build": "node server.js"
+    "build": "node server.js",
+    "data:import": "node seeder.js",
+    "data:destroy": "node seeder.js -d"
   },
   "author": "fraol",
   "license": "ISC",
