@@ -6,24 +6,39 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
     author: {
       type: String,
       required: true,
     },
-
     description: {
       type: String,
-      unique: true,
+      required: true,
     },
-    picturePath: {
+    image: {
       type: String,
       default: "",
     },
-    comments: {
-      type: Array,
-      default: [],
-    },
+    comments: [
+      {
+        text: {
+          type: String,
+          required: true,
+        },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    categories: [
+      {
+        type: String,
+      },
+    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -37,26 +37,25 @@ const getProfile = async (req, res) => {
   }
 };
 const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+  const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(400).json({ message: "user not found" });
-    }
+  const user = await User.findOne({ email });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+  if (user && (await bcrypt.compare(password, user.password))) {
+    generateToken(res, user._id);
 
-    if (!isMatch) {
-      return res.status(401).json({ message: "Password doesn't match" });
-    }
-
-    await generateToken(res, user._id);
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(500).json(error);
+    res.json({
+      _id: user._id,
+      name: user.Fullname,
+      email: user.email,
+      profilePic: user.ProfilePic,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
   }
 };
+
 const registerUser = async (req, res) => {
   try {
     const { Fullname, email, password } = req.body;
@@ -69,7 +68,6 @@ const registerUser = async (req, res) => {
     const hashed = await bcrypt.hash(password, salt);
 
     const new_user = await User.create({ Fullname, email, password: hashed });
-    console.log(new_user);
 
     if (new_user) {
       await generateToken(res, new_user._id);

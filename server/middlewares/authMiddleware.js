@@ -8,6 +8,7 @@ export const protect = async (req, res, next) => {
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decode.userId).select("-password");
+
       next();
     } catch (error) {
       res.json({ error: error });

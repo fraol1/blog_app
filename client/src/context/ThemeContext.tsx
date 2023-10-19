@@ -1,5 +1,4 @@
 "use client";
-// DarkModeContext.tsx
 import { createContext, useContext, useState, ReactNode } from "react";
 
 interface DarkModeContextType {

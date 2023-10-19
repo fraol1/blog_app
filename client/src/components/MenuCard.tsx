@@ -1,7 +1,7 @@
 import { Post } from "./Card";
 
 interface Props {
-  posts: Post[];
+  posts: Post[] | undefined;
 }
 
 const colors = [
@@ -16,16 +16,16 @@ const colors = [
 const MenuCard = ({ posts }: Props) => {
   return (
     <div className='mt-5 space-y-7'>
-      {posts.map((post, index) => (
-        <div key={post.category} className={`flex flex-col items-start `}>
+      {posts?.map((post, index) => (
+        <div key={post._id} className={`flex flex-col items-start `}>
           <span
             className={`px-4 py-1 rounded-full text-white ${colors[index]}`}>
-            {post.category}
+            {post.categories}
           </span>
-          <p className='text-lg'>{post.desc}</p>
+          <p className='text-lg'>{post.description}</p>
           <div className='flex items-center space-x-2'>
             <span className='font-bold'>{post.author}</span>
-            <span className='text-gray-600'>- {post.date}</span>
+            <span className='text-gray-600'>- {post.createdAt}</span>
           </div>
         </div>
       ))}

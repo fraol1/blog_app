@@ -17,11 +17,20 @@ const importData = async () => {
 
     const createdUsers = await User.insertMany(users);
 
-    const sampleProducts = blogs.map((blog, index) => {
-      return { ...blog, user: createdUsers[index]._id };
+    const sampleBlog = blogs.map((blog, index) => {
+      const updatedComments = blog.comments.map((comment) => ({
+        ...comment,
+        user: createdUsers[index]._id,
+      }));
+
+      return {
+        ...blog,
+        user: createdUsers[index]._id,
+        comments: updatedComments,
+      };
     });
 
-    await Blog.insertMany(sampleProducts);
+    await Blog.insertMany(sampleBlog);
 
     console.log("Data Imported!");
     process.exit();

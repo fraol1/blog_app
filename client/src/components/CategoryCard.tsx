@@ -1,10 +1,7 @@
-interface obj {
-  label: string;
-  image: string;
-}
+import { Post } from "./Card";
 
 interface Props {
-  categories: obj[];
+  posts: Post[] | undefined;
 }
 
 export const colors = [
@@ -16,17 +13,17 @@ export const colors = [
   "bg-yellow-100",
 ];
 
-const CategoryCard = ({ categories }: Props) => {
+const CategoryCard = ({ posts }: Props) => {
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-8'>
-      {categories.map((category, index) => (
+      {posts?.map((post, index) => (
         <div
-          key={category.label}
+          key={post._id}
           className={`${
             colors[index % colors.length]
           } p-4 text-slate-950 flex justify-center items-center rounded-lg space-x-2`}>
-          <img src={category.image} className='rounded-full w-8 h-8' alt='' />
-          <p className='text-sm sm:text-base'>{category.label}</p>
+          <img src={post.image} className='rounded-full w-8 h-8' alt='' />
+          <p className='text-sm sm:text-base'>{post.categories}</p>
         </div>
       ))}
     </div>

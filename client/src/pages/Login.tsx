@@ -1,5 +1,8 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { Link, json, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { setCredential } from "../slices/UserSlice";
 interface formData {
   email: string;
   password: string;
@@ -19,11 +22,29 @@ const LoginPage = () => {
       [name]: value,
     });
   };
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [login] = useLoginMutation();
+
+  const { userInfo } = useAppSelector((state) => state.user);
+  const email = "michael@example.com";
+  const password = "123456";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+
+    const res = await login({ email, password }).unwrap();
+    console.log(res);
+
+    dispatch(setCredential(res));
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
   return (
     <div className='flex min-h-screen items-center justify-center'>
       <div className=' p-8 rounded-lg shadow-md w-96'>
@@ -69,7 +90,7 @@ const LoginPage = () => {
         <p className='mt-4 text-center text-sm '>
           Don't have an account?{" "}
           <a href='/login' className='text-blue-500 hover:underline'>
-            Register here
+            <Link to={"/register"}>Register here</Link>
           </a>
           .
         </p>

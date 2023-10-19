@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useRegisterMutation } from "../slices/userApiSlice";
 
 interface formData {
   Fullname: string;
@@ -22,9 +24,15 @@ const RegistrationPage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [register, { isLoading }] = useRegisterMutation();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const res = await register(formData).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className='flex min-h-screen items-center justify-center'>
@@ -85,9 +93,9 @@ const RegistrationPage = () => {
 
         <p className='mt-4 text-center text-sm '>
           Already have an account?{" "}
-          <a href='/login' className='text-blue-500 hover:underline'>
-            Login here
-          </a>
+          <span className='text-blue-500 hover:underline'>
+            <Link to={"/login"}>Login here</Link>
+          </span>
           .
         </p>
       </div>

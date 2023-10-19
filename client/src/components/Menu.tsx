@@ -1,14 +1,18 @@
 import DiscoverTopic from "./DiscoverTopic";
 import MenuCard from "./MenuCard";
-import { postsArray } from "./RecentPosts";
+import { useGetBlogsQuery } from "../slices/blogApiSlice";
 
 const Menu = () => {
+  const { data, isLoading, isError } = useGetBlogsQuery();
+  if (isLoading) return <p>Laoding...</p>;
+
+  if (isError) return <p>Coudn't fetch</p>;
   return (
-    <div className='flex flex-col justify-start items-start'>
+    <div className='flex w-1/3 flex-col justify-start items-start'>
       <span>what's hot?</span>
       <h5 className='text-lg font-bold'>Most Popular</h5>
-      <MenuCard posts={postsArray} />
-      <DiscoverTopic />
+      <MenuCard posts={data} />
+      <DiscoverTopic blogs={data} />
     </div>
   );
 };

@@ -2,8 +2,19 @@ import Featured from "../components/Featured";
 import CategoryList from "../components/CategoryList";
 import RecentPosts from "../components/RecentPosts";
 import Menu from "../components/Menu";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../hooks/hooks";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const { userInfo } = useAppSelector((state) => state.user);
+  useEffect(() => {
+    if (userInfo === null) {
+      navigate("/login");
+    }
+  }, [userInfo, navigate]);
+
   return (
     <>
       <Featured />

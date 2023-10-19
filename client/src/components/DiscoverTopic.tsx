@@ -1,7 +1,11 @@
+import { Post } from "./Card";
 import { colors } from "./CategoryCard";
-import { categoryArray } from "./CategoryList";
 
-const DiscoverTopic = () => {
+interface Props {
+  blogs: Post[] | undefined;
+}
+
+const DiscoverTopic = ({ blogs }: Props) => {
   return (
     <div className='mt-10'>
       <span className='text-slate-600 text-sm md:text-base'>
@@ -9,11 +13,11 @@ const DiscoverTopic = () => {
       </span>
       <h3 className='font-bold text-lg md:text-xl'>Categories</h3>
       <div className='flex flex-wrap gap-6 text-slate-900 justify-start mt-4'>
-        {categoryArray.map((post, index) => (
+        {blogs?.map((post, index) => (
           <div
-            key={post.label}
+            key={post._id}
             className={`px-4 py-2 ${colors[index]} rounded-xl text-sm md:text-base`}>
-            <span>{post.label}</span>
+            <span>{post.categories}</span>
           </div>
         ))}
       </div>

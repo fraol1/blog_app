@@ -3,12 +3,14 @@ import { useState } from "react";
 interface formData {
   title: string;
   description: string;
+  category: string;
 }
 
 function BlogWritePage() {
   const initialFormData: formData = {
     title: "",
     description: "",
+    category: "web dev",
   };
   const [formData, setFormData] = useState<formData>(initialFormData);
 
@@ -16,6 +18,7 @@ function BlogWritePage() {
     e:
       | React.ChangeEvent<HTMLTextAreaElement>
       | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,7 +26,6 @@ function BlogWritePage() {
 
   const handleBlogSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
   };
 
   return (
@@ -62,6 +64,25 @@ function BlogWritePage() {
           </div>
 
           <div className='mb-4'>
+            <label htmlFor='category' className='block text-sm font-medium '>
+              Category
+            </label>
+            <select
+              id='category'
+              name='category'
+              value={formData.category}
+              onChange={handleChange}
+              className='mt-1 p-2 w-full bg-slate-200 text-slate-800 border rounded-md'>
+              <option value='web dev'>Web Development</option>
+              <option value='cloud computing'>Cloud Computing</option>
+              <option value='cybersecurity'>Cybersecurity</option>
+              <option value='ai'>Artificial Intelligence</option>
+              <option value='databases'>Databases</option>
+              <option value='ui/ux'>UI/UX</option>
+            </select>
+          </div>
+
+          <div className='mb-4'>
             <label htmlFor='image' className='block text-sm font-medium '>
               Image
             </label>
@@ -76,7 +97,7 @@ function BlogWritePage() {
 
           <button
             type='submit'
-            className='w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'>
+            className='w-full p-2 bg-blue-500 text-white rounded-md hover-bg-blue-600 transition-colors'>
             Submit
           </button>
         </form>

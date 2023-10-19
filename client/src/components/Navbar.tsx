@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <div
       className={`  border-b-2 border-black  py-3 flex justify-between items-center`}>
-      <div className='font-bold text-3xl'>ShareIt</div>
+      <div className='font-bold text-3xl'>
+        <Link to={"/"}>ShareIt</Link>
+      </div>
       <div>
         <ul className='hidden sm:flex justify-between space-x-10 list-none text-lg'>
           <li>
