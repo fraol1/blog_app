@@ -14,7 +14,7 @@ const blogs = [
         user: "user2_id",
       },
     ],
-    categories: ["web dev"],
+    categories: "web dev",
     user: "user1_id",
   },
   {
@@ -32,7 +32,7 @@ const blogs = [
         user: "user4_id",
       },
     ],
-    categories: ["web dev"],
+    categories: "web dev",
     user: "user2_id",
   },
   {
@@ -50,7 +50,7 @@ const blogs = [
         user: "user6_id",
       },
     ],
-    categories: ["web dev"],
+    categories: "web dev",
     user: "user3_id",
   },
   {
@@ -64,7 +64,7 @@ const blogs = [
         user: "user7_id",
       },
     ],
-    categories: ["web dev"],
+    categories: "web dev",
     user: "user4_id",
   },
   {
@@ -82,7 +82,7 @@ const blogs = [
         user: "user9_id",
       },
     ],
-    categories: ["databases"],
+    categories: "databases",
     user: "user5_id",
   },
   {
@@ -100,7 +100,7 @@ const blogs = [
         user: "user1_id",
       },
     ],
-    categories: ["ai"],
+    categories: "ai",
     user: "user6_id",
   },
   {
@@ -118,7 +118,7 @@ const blogs = [
         user: "user3_id",
       },
     ],
-    categories: ["cybersecurity"],
+    categories: "cybersecurity",
     user: "user7_id",
   },
   {
@@ -136,7 +136,7 @@ const blogs = [
         user: "user5_id",
       },
     ],
-    categories: ["cloud computing"],
+    categories: "cloud computing",
     user: "user8_id",
   },
   {
@@ -154,7 +154,7 @@ const blogs = [
         user: "user7_id",
       },
     ],
-    categories: ["ui/ux"],
+    categories: "ui/ux",
     user: "user9_id",
   },
   {
@@ -172,7 +172,7 @@ const blogs = [
         user: "user1_id",
       },
     ],
-    categories: ["coding"],
+    categories: "coding",
     user: "user10_id",
   },
 ];

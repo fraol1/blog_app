@@ -20,7 +20,11 @@ const importData = async () => {
     const sampleBlog = blogs.map((blog, index) => {
       const updatedComments = blog.comments.map((comment) => ({
         ...comment,
-        user: createdUsers[index]._id,
+        user: {
+          _id: createdUsers[index]._id,
+          name: createdUsers[index].Fullname,
+          profilePic: createdUsers[index].ProfilePic,
+        },
       }));
 
       return {

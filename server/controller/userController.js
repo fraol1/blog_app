@@ -70,7 +70,7 @@ const registerUser = async (req, res) => {
     const new_user = await User.create({ Fullname, email, password: hashed });
 
     if (new_user) {
-      await generateToken(res, new_user._id);
+      generateToken(res, new_user._id);
 
       return res.status(201).json(new_user);
     } else {
@@ -99,6 +99,18 @@ const followUser = async (req, res) => {
     return res.status(200).json(error);
   }
 };
+
+const logout = async (req, res) => {
+  try {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expiresIn: Date.now(),
+    });
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 export {
   getUser,
   getUsers,
@@ -107,4 +119,5 @@ export {
   deleteUser,
   followUser,
   getProfile,
+  logout,
 };

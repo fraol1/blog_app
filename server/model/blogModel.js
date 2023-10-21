@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const blogSchema = new mongoose.Schema(
   {
     title: {
@@ -25,8 +24,14 @@ const blogSchema = new mongoose.Schema(
           required: true,
         },
         user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          name: {
+            type: String,
+            required: true,
+          },
+          profilePic: {
+            type: String,
+            required: true,
+          },
         },
         createdAt: {
           type: Date,
@@ -34,11 +39,9 @@ const blogSchema = new mongoose.Schema(
         },
       },
     ],
-    categories: [
-      {
-        type: String,
-      },
-    ],
+    categories: {
+      type: String,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
